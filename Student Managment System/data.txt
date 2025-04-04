@@ -1,0 +1,10 @@
+10 5
+A
+B
+C
+D
+E
+3
+awdawd 0 0
+This_is_a_very_long_text_and_it_cannot_be_displayed_when_loaded 0 1
+a 0 2

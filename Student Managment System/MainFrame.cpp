@@ -42,6 +42,7 @@ void MainFrame::CreateControls()
 	
 
 	deleteButton = new wxButton(panel, wxID_ANY, "Delete");
+	deleteLabel = new wxStaticText(panel, wxID_ANY, "- Select a row/column and press Delete");
 
 }
 
@@ -53,7 +54,6 @@ void MainFrame::SetupSizers()
 	wxBoxSizer* ribbonSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	wxBoxSizer* saveSizer = new wxBoxSizer(wxHORIZONTAL);
-	saveSizer->AddSpacer(20);
 	saveSizer->Add(saveButton);
 	saveSizer->AddSpacer(25);
 	saveSizer->Add(loadButton);
@@ -73,30 +73,43 @@ void MainFrame::SetupSizers()
 	mainSizer->Add(tabelSizer, wxSizerFlags().Expand().Proportion(1));
 	mainSizer->AddSpacer(25);
 
-	wxBoxSizer* buttonsSizer = new wxBoxSizer(wxHORIZONTAL);
-	buttonsSizer->AddSpacer(20);
-	buttonsSizer->Add(addRowButton);
-	buttonsSizer->AddSpacer(10);
-	buttonsSizer->Add(rowInputFieldLabel, 0, wxALIGN_CENTER_VERTICAL);
-	buttonsSizer->AddSpacer(10);
-	buttonsSizer->Add(rowInputField);
-	buttonsSizer->AddSpacer(25);
+	wxBoxSizer* buttonsSizer = new wxBoxSizer(wxVERTICAL);
 
-	buttonsSizer->Add(addColumnButton);
+	wxBoxSizer* deleteSizer = new wxBoxSizer(wxHORIZONTAL);
+	deleteSizer->Add(deleteButton);
+	deleteSizer->AddSpacer(10);
+	deleteSizer->Add(deleteLabel, wxSizerFlags().Align(wxALIGN_CENTER_VERTICAL));
+	buttonsSizer->Add(deleteSizer);
 	buttonsSizer->AddSpacer(10);
-	buttonsSizer->Add(columnInputFieldLabel, 0, wxALIGN_CENTER_VERTICAL);
+
+	wxBoxSizer* rowSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	rowSizer->Add(addRowButton);
+	rowSizer->AddSpacer(10);
+	rowSizer->Add(rowInputFieldLabel, wxSizerFlags().Align(wxALIGN_CENTER_VERTICAL));
+	rowSizer->AddSpacer(10);
+	rowSizer->Add(rowInputField);
+	buttonsSizer->Add(rowSizer);
 	buttonsSizer->AddSpacer(10);
-	buttonsSizer->Add(columnInputField);
-	buttonsSizer->AddSpacer(25);
 
+	wxBoxSizer* columnSizer = new wxBoxSizer(wxHORIZONTAL);
 
-	buttonsSizer->Add(deleteButton);
+	columnSizer->Add(addColumnButton);
+	columnSizer->AddSpacer(10);
+	columnSizer->Add(columnInputFieldLabel, wxSizerFlags().Align(wxALIGN_CENTER_VERTICAL));
+	columnSizer->AddSpacer(10);
+	columnSizer->Add(columnInputField);
+	buttonsSizer->Add(columnSizer);
 
 	mainSizer->Add(buttonsSizer);
-	mainSizer->AddSpacer(10);
 
-	panel->SetSizer(mainSizer);
-	mainSizer->SetSizeHints(this);
+	wxGridSizer* outerSizer = new wxGridSizer(1);
+
+	outerSizer->Add(mainSizer, wxSizerFlags().Border(wxALL, 20).Expand());
+
+
+	panel->SetSizer(outerSizer);
+	outerSizer->SetSizeHints(this);
 }
 
 void MainFrame::BindEventHandlers()

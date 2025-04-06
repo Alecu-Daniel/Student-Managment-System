@@ -41,4 +41,5 @@ private:
 	wxStaticText* columnInputFieldLabel;
 	wxTextCtrl* columnInputField;
 	wxButton* deleteButton;
+	wxStaticText* deleteLabel;
 };
